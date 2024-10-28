@@ -1,0 +1,151 @@
+scalar LocalDateTime
+
+# Input types
+input FlightInput {
+    flightNumber: String!
+    origin: String!
+    destination: String!
+    seatsAvailable: Int!
+    departureTime: LocalDateTime!
+    arrivalTime: LocalDateTime!
+}
+
+input PassengerInput{
+    name: String!
+    lastName: String!
+    nationality: String!
+    typeDni: String!
+    dni: String!
+    age: Int!
+    email: String!
+    phone: String!
+}
+
+input ReservationInput{
+    flightId: ID!
+    passengerIds: [ID!]!
+}
+
+input ReservationPassengerInput{
+    reservationTime: LocalDateTime!
+    reservationId: ID!
+    passengerId: ID!
+}
+
+# DTO types
+type FlightSummaryDTO {
+    id: ID!
+    flightNumber: String!
+    origin: String!
+    destination: String!
+    seatsAvailable: Int!
+    departureTime: LocalDateTime!
+    arrivalTime: LocalDateTime!
+}
+
+type ReservationSummaryDTO {
+    id: ID!
+    reservationCode: String!
+    flight: FlightSummaryDTO!
+}
+
+type PassengerSummaryDTO {
+    id: ID!
+    name: String!
+    lastName: String!
+    nationality: String!
+    typeDni: String!
+    dni: String!
+    age: Int!
+    email: String!
+    phone: String!
+}
+
+type ReservationPassengerSummaryDTO {
+    id: ID!
+    seatNumber: String!
+    reservationTime: LocalDateTime!
+    passenger: PassengerSummaryDTO!
+}
+
+type PassengerDTO{
+    id: ID!
+    name: String!
+    lastName: String!
+    nationality: String!
+    typeDni: String!
+    dni: String!
+    age: Int!
+    email: String!
+    phone: String!
+    reservationPassenger: [ReservationPassengerSummaryDTO!]!
+}
+
+type FlightDTO{
+    id: ID!
+    flightNumber: String!
+    origin: String!
+    destination: String!
+    seatsAvailable: Int!
+    departureTime: LocalDateTime!
+    arrivalTime: LocalDateTime!
+    reservations: [ReservationSummaryDTO!]!
+}
+
+type ReservationDTO {
+    id: ID!
+    reservationCode: String!,
+    flight: FlightDTO!,
+    reservationPassenger: [ReservationPassengerSummaryDTO!]!
+}
+
+type ReservationPassengerDTO {
+    id: ID!
+    seatNumber: String!,
+    reservationTime: LocalDateTime!,
+    reservation: ReservationSummaryDTO!,
+    passenger: PassengerSummaryDTO!
+}
+
+# Query Tyoes
+type Query{
+
+    # Flights
+    allFlights: [FlightSummaryDTO!]!
+    flightById(id: ID!): FlightSummaryDTO
+
+    # Passengers
+    allPassengers: [PassengerSummaryDTO!]!
+    passengerById(id: ID!): PassengerSummaryDTO
+
+    # Reservations
+    allReservations: [ReservationSummaryDTO!]!
+    reservationById(id: ID!): ReservationDTO
+
+    # ReservationPassenger
+    allReservationPassengers: [ReservationPassengerDTO!]!
+    reservationPassengerById(id: ID!): ReservationPassengerDTO
+}
+
+# Mutation Types
+type Mutation{
+    # Flight
+    saveFlight(flightInput: FlightInput!): FlightSummaryDTO
+    updateFlight(id: ID!, flightInput: FlightInput!): FlightSummaryDTO
+    deleteFlight(id: ID!): String
+
+    # Passenger
+    savePassenger(passengerInput: PassengerInput!): PassengerSummaryDTO
+    updatePassenger(id: ID!, passengerInput: PassengerInput!): PassengerSummaryDTO
+    deletePassenger(id: ID!): String
+
+    # Reservation
+    saveReservation(reservationInput: ReservationInput!): ReservationDTO
+    updateReservation(id: ID!, reservationInput: ReservationInput!): ReservationDTO
+    deleteReservation(id: ID!): String
+
+    # ReservationPassenger
+    saveReservationPassenger(reservationPassengerInput: ReservationPassengerInput!): ReservationPassengerDTO
+    updateReservationPassenger(id: ID!, reservationPassengerInput: ReservationPassengerInput!): ReservationPassengerDTO
+    deleteReservationPassenger(id: ID!): String
+}
