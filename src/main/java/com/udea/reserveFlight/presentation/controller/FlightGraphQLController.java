@@ -72,7 +72,10 @@ public class FlightGraphQLController {
         return "Vuelo eliminado con éxito";
     }
 
-    private void validateFlightTimes(LocalDateTime departure, LocalDateTime arrival) {
+    public void validateFlightTimes(LocalDateTime departure, LocalDateTime arrival) {
+        if (departure == null || arrival == null) {
+            throw new AppException("Las horas de salida y llegada no pueden ser nulas", "NULL_TIME");
+        }
         if (departure.isAfter(arrival)) {
             throw new AppException("La hora de salida debe ser antes que la hora de llegada", "INVALID_TIME_RANGE");
         }

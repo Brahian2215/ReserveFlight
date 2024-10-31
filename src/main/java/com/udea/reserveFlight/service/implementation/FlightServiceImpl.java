@@ -122,12 +122,4 @@ public class FlightServiceImpl implements IFlightService {
         return "Vuelo eliminado con éxito";
     }
 
-
-    private void validateSeatsAvailability(Flight flight, int newSeatsAvailable) {
-        int reservedSeats = flight.getReservations() != null ? flight.getReservations().size() : 0;
-        if (newSeatsAvailable < reservedSeats) {
-            throw new AppException("La cantidad de asientos no puede ser menor que las reservas actuales", "INVALID_SEAT_COUNT");
-        }
-    }
-
 }
