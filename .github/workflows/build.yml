@@ -53,7 +53,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       #Run Tests
-      - name: Run Tests and Build Project
+      - name: Run Tests
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/db_reservations
           SPRING_DATASOURCE_USERNAME: postgres
