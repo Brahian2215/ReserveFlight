@@ -87,6 +87,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       # Set up SonarCloud cache
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -94,6 +101,13 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
+      - name: Build Project
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/db_reservations
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: root
+        run: mvn -B package
 
       #Analyze code with SonarCloud
       - name: SonarCloud Scan
