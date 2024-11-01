@@ -66,6 +66,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: tests
 
+    services:
+      # Define a PostgreSQL service
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: db_reservations
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     #Job's steps
     steps:
       - name: Checkout code
@@ -93,6 +109,13 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      - name: Build Project
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/db_reservations
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: root
+        run: mvn -B package
 
       #Analyze code with SonarCloud
       - name: SonarCloud Scan
