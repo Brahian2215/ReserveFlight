@@ -19,7 +19,6 @@
 		<sonar.organization>brahian2215</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.projectKey>Brahian2215_ReserveFlight</sonar.projectKey>
-		<sonar.java.binaries>target/classes</sonar.java.binaries>
 	</properties>
 
 	<dependencies>
@@ -87,6 +86,13 @@
 			<artifactId>spring-graphql-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>4.0.0.4121</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
