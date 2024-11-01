@@ -14,6 +14,23 @@ jobs:
     name: Unit tests
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
+
+    services:
+      # Define a PostgreSQL service
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: db_reservations
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     #Job's steps
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
@@ -33,17 +50,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      # Set environment variables for Postgres
-      - name: Set environment variables
+      #Run Tests
+      - name: Run Tests
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/db_reservations
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
-        run: |
-          echo "SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}" >> $GITHUB_ENV
-          echo "SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}" >> $GITHUB_ENV
-
-      #Run Tests
-      - name: Run Tests
         run: mvn -B test
