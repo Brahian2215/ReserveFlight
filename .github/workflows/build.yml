@@ -52,18 +52,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      # Wait for PostgreSQL to be ready
-      - name: Wait for PostgreSQL
-        run: |
-          for i in {1..10}; do
-            if pg_isready -h localhost -p 5432; then
-              echo "PostgreSQL is ready"
-              break
-            fi
-            echo "Waiting for PostgreSQL..."
-            sleep 5
-          done
-
       #Run Tests
       - name: Run Tests
         env:
@@ -113,7 +101,7 @@ jobs:
 
       #Analyze code with SonarCloud
       - name: SonarCloud Scan
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Brahian2215_ReserveFlight -Dsonar.organization=brahian2215 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Brahian2215_ReserveFlight -Dsonar.organization=brahian2215 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login={{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
