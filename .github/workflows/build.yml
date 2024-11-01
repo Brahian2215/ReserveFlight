@@ -9,8 +9,10 @@ on:
       - main
 
 jobs:
-  setup:
-    name: Setup Environment
+  #Test's job
+  tests:
+    name: Unit tests
+    #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
 
     services:
@@ -29,6 +31,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    #Job's steps
     steps:
       # Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - name: Checkout code
@@ -49,26 +52,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      # Set up SonarCloud cache
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
-  #Test's job
-  tests:
-    name: Unit tests
-    #Run on Ubuntu using the latest version
-    runs-on: ubuntu-latest
-    needs: setup
-
-    #Job's steps
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       #Run Tests
       - name: Run Tests and Build Project
         env:
@@ -76,13 +59,6 @@ jobs:
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: root
         run: mvn -B test
-
-      # Guarda los artefactos generados para sonar
-      - name: Save artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-results
-          path: target
 
   #Sonar's job
   sonar:
@@ -95,11 +71,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Retrieve the build results
-        uses: actions/download-artifact@v3
+      # Set up SonarCloud cache
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
         with:
-          name: build-results
-          path: target
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       #Analyze code with SonarCloud
       - name: SonarCloud Scan
