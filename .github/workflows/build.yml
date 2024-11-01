@@ -32,7 +32,7 @@ jobs:
     steps:
       # Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up JDK 17
       - name: Set up JDK 17
@@ -67,7 +67,7 @@ jobs:
     #Job's steps
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       #Run Tests
       - name: Run Tests and Build Project
@@ -93,7 +93,7 @@ jobs:
     #Job's steps
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Retrieve the build results
         uses: actions/download-artifact@v3
