@@ -2,6 +2,17 @@
 Módulo de Gestión de Reservas de un vuelo.
 
 [![CI/CD Pipeline](https://github.com/Brahian2215/ReserveFlight/actions/workflows/build.yml/badge.svg)](https://github.com/Brahian2215/ReserveFlight/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Brahian2215_ReserveFlight&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Brahian2215_ReserveFlight)
 
 ## Descripción
 Este módulo permite gestionar las reservas de vuelos de una aerolínea. 
