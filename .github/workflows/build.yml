@@ -165,3 +165,13 @@ jobs:
           name: artifact
           #From this path
           path: target/reserveFlight-0.0.1-SNAPSHOT.jar
+
+      - name: Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: brahian2255/reserve_flight
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
